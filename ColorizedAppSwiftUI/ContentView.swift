@@ -17,13 +17,13 @@ struct ContentView: View {
     @State private var sliderRedValue = Double.random(in: 0...255)
     @State private var sliderGreenValue = Double.random(in: 0...255)
     @State private var sliderBlueValue = Double.random(in: 0...255)
-    
+
     @FocusState private var focusedField: Field?
-    
+
     var body: some View {
         
         ZStack {
-            Color(hue: 0.6, saturation: 1, brightness: 0.8)
+            Color(hue: 0.6, saturation: 1, brightness: 0.9)
                 .ignoresSafeArea()
                 .onTapGesture {
                     focusedField = nil
@@ -36,39 +36,32 @@ struct ContentView: View {
                         blue: sliderBlueValue/255)
                     )
                     .frame(width: 370, height: 170)
-                    .overlay(RoundedRectangle(cornerRadius: 15)
-                        .stroke(.white, lineWidth: 4))
+                    .overlay(RoundedRectangle(cornerRadius: 15).stroke(.white, lineWidth: 4))
                 
                 Spacer().frame(height: 50)
                 
-                ColorSliderView(sliderValue: $sliderRedValue,
-                                sliderColor: .red)
-                .focused($focusedField, equals: .red)
-                
-                ColorSliderView(sliderValue: $sliderGreenValue,
-                                sliderColor: .green)
-                .focused($focusedField, equals: .green)
-                
-                ColorSliderView(sliderValue: $sliderBlueValue,
-                                sliderColor: .blue)
-                .focused($focusedField, equals: .blue)
-                
+                ColorSliderView(sliderValue: $sliderRedValue, sliderColor: .red)
+                    .focused($focusedField, equals: .red)
+                ColorSliderView(sliderValue: $sliderGreenValue, sliderColor: .green)
+                    .focused($focusedField, equals: .green)
+                ColorSliderView(sliderValue: $sliderBlueValue, sliderColor: .blue)
+                    .focused($focusedField, equals: .blue)
+                    
                 Spacer()
-           }
-            
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Save") {
+                    Button("Done") {
                         focusedField = nil
                     }
                 }
             }
-            padding()
+            .padding()
         }
     }
 }
-
+// MARK: - Setup Sliders & TextField
 struct ColorSliderView: View {
     @Binding var sliderValue: Double
     @State var textValue = ""
@@ -95,23 +88,20 @@ struct ColorSliderView: View {
             TextField("", text: $textValue) { _ in
                 withAnimation { checkValue() }
             }
-            .font(.system(size: 18))
-            .background()
-            .cornerRadius(5)
-            .textFieldStyle(.roundedBorder)
-            .frame(width: 50)
-            .multilineTextAlignment(.trailing)
-            .keyboardType(.numberPad)
-            .alert("Wrong Value", isPresented: $isPresented,
-                   actions: {}) {
+                .font(.system(size: 18))
+                .background()
+                .cornerRadius(5)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 50)
+                .multilineTextAlignment(.trailing)
+                .keyboardType(.numberPad)
+                .alert("WRONG VALUE", isPresented: $isPresented, actions: {}) {
                 Text("Please enter value from 0 to 255")
-            }
-            
+                }
         }
-        
         .onAppear {textValue = "\(lround(sliderValue))"}
     }
-    
+   
     private func checkValue() {
         if let value = Double(textValue), (0...255).contains(value) {
             sliderValue = value
@@ -126,3 +116,4 @@ struct ColorSliderView: View {
 #Preview {
     ContentView()
 }
+
