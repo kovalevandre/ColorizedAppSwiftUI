@@ -61,7 +61,7 @@ struct ContentView: View {
         }
     }
 }
-// MARK: - Setup Sliders & TextField
+
 struct ColorSliderView: View {
     @Binding var sliderValue: Double
     @State var textValue = ""
