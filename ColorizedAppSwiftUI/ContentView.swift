@@ -96,7 +96,7 @@ struct ColorSliderView: View {
                 .multilineTextAlignment(.trailing)
                 .keyboardType(.numberPad)
                 .alert("WRONG VALUE", isPresented: $isPresented, actions: {}) {
-                Text("Please enter value from 0 to 255")
+                Text("Please enter numbers from 0 to 255")
                 }
         }
         .onAppear {textValue = "\(lround(sliderValue))"}
