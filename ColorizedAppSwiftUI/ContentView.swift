@@ -75,7 +75,7 @@ struct ColorSliderView: View {
                 .font(.system(size: 18))
                 .foregroundColor(.white)
                 .frame(width: 40)
-                .multilineTextAlignment(.leading)
+                .multilineTextAlignment(.center)
             
             Slider(value: $sliderValue, in: 0...255, step: 1)
                 .accentColor(sliderColor)
@@ -93,7 +93,7 @@ struct ColorSliderView: View {
                 .cornerRadius(5)
                 .textFieldStyle(.roundedBorder)
                 .frame(width: 50)
-                .multilineTextAlignment(.trailing)
+                .multilineTextAlignment(.center)
                 .keyboardType(.numberPad)
                 .alert("WRONG VALUE", isPresented: $isPresented, actions: {}) {
                 Text("Please enter numbers from 0 to 255")
